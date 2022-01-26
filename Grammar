@@ -1,0 +1,3 @@
+statement -> show
+show -> 'SHOW' value
+value -> string | number | identifier
