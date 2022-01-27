@@ -10,6 +10,7 @@ from .parser.parser import Parser
 from .parser.node.node import Node
 from .compiler.compiler import Compiler
 from .compiler.opcode import OpCode
+from .vm.vm import VM
 
 
 def run() -> None:
@@ -46,3 +47,6 @@ def run() -> None:
     if args.bytecode:
         for opcode in bytecode:
             print(opcode)
+
+    vm: VM = VM(opcodes=bytecode)
+    vm.run()

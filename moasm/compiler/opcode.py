@@ -7,8 +7,18 @@ class OpCode:
         self.__opcode_value = opcode_value
         self.__opcode_dtype = opcode_dtype
 
+    @property
+    def opcode_type(self):
+        return self.__opcode_type
+
+    @property
+    def opcode_value(self):
+        return self.__opcode_value
+
     def __str__(self) -> str:
         optype = str(self.__opcode_type)
         value = f" {self.__opcode_value} ({self.__opcode_dtype})"
 
-        return optype + " " + value if self.__opcode_value is not None and self.__opcode_dtype is not None else optype
+        return optype + " " + value \
+            if self.__opcode_value is not None and self.__opcode_dtype is not None \
+            else optype
