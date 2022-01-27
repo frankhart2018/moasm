@@ -8,6 +8,9 @@ from .node.program_node import ProgramNode
 from .node.show_node import ShowNode
 from .node.string_node import StringNode
 from .node.statement_node import StatementNode
+from .node.number_node import NumberNode
+from ..compiler.opcode_type import OpCodeType
+from .node.bin_op_statement_node import BinOpStatementNode
 
 
 class Parser:
@@ -31,6 +34,8 @@ class Parser:
     def __parse_value(self) -> ValueNode:
         if self.__peek().ttype == TokenType.STRING:
             return StringNode(value=self.__peek().val)
+        elif self.__peek().ttype == TokenType.NUMBER:
+            return NumberNode(value=self.__peek().val)
 
     def __parse_show_statement(self) -> StatementNode:
         self.__advance()
@@ -43,9 +48,26 @@ class Parser:
 
         return ShowNode(value_nodes=value_nodes)
 
+    def __parse_bin_op_statement(self) -> StatementNode:
+        op = OpCodeType[str(self.__peek().ttype).split(".")[1]]
+
+        self.__advance()
+        left = self.__parse_value()
+
+        self.__advance()
+        right = self.__parse_value()
+
+        self.__advance()
+        self.__advance()
+
+
+        return BinOpStatementNode(left=left, op=op, right=right)
+
     def __parse_statement(self) -> StatementNode:
         if self.__peek().ttype == TokenType.SHOW:
             return self.__parse_show_statement()
+        elif self.__peek().ttype in [TokenType.ADD, TokenType.SUB, TokenType.MUL, TokenType.DIV, TokenType.MOD]:
+            return self.__parse_bin_op_statement()
 
     def __parse_program(self) -> Node:
         statements: List[StatementNode] = []

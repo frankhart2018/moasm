@@ -14,8 +14,26 @@ class VM:
             if opcode.opcode_type == OpCodeType.LOAD_CONST:
                 self.__const_stack.append(opcode.opcode_value)
             elif opcode.opcode_type == OpCodeType.SHOW:
-                val_to_print = ""
-                while self.__const_stack:
-                    val_to_print += str(self.__const_stack.pop(0)) + " "
+                consts = []
 
-                print(val_to_print)
+                while self.__const_stack:
+                    consts.append(str(self.__const_stack.pop()))
+
+                print(" ".join(consts[::-1]))
+            elif opcode.opcode_type in [OpCodeType.ADD, OpCodeType.SUB,
+                                        OpCodeType.MUL, OpCodeType.DIV, OpCodeType.MOD]:
+                op2 = int(self.__const_stack.pop())
+                op1 = int(self.__const_stack.pop())
+
+                if opcode.opcode_type == OpCodeType.ADD:
+                    self.__const_stack.append(op1 + op2)
+                elif opcode.opcode_type == OpCodeType.SUB:
+                    self.__const_stack.append(op1 - op2)
+                elif opcode.opcode_type == OpCodeType.MUL:
+                    self.__const_stack.append(op1 * op2)
+                elif opcode.opcode_type == OpCodeType.DIV:
+                    self.__const_stack.append(op1 // op2)
+                elif opcode.opcode_type == OpCodeType.MOD:
+                    self.__const_stack.append(op1 % op2)
+
+                print(self.__const_stack.pop())
