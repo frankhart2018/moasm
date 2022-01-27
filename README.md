@@ -19,3 +19,52 @@ Once you have written your instructions in a .moasm file, you can run it by runn
 ```bash
 user@programmer~:$ moasm -i <.moasm file>
 ```
+
+## Symbols
+
+The entire language consists of only three symbols:
+
+1. `.`: The dot symbol.
+2. `-`: The dash symbol.
+3. `~`: The space symbol.
+
+Here is the list of morse code symbols:
+
+| Symbol | Letter |
+|:------:|:------:|
+|   .-   |    A   |
+|  -...  |    B   |
+|  -.-.  |    C   |
+|   -..  |    D   |
+|    .   |    E   |
+|  ..-.  |    F   |
+|   --.  |    G   |
+|  ....  |    H   |
+|   ..   |    I   |
+|  .---  |    J   |
+|   -.-  |    K   |
+|  .-..  |    L   |
+|   --   |    M   |
+|   -.   |    N   |
+|   ---  |    O   |
+|  .--.  |    P   |
+|  --.-  |    Q   |
+|   .-.  |    R   |
+|   ...  |    S   |
+|    -   |    T   |
+|   ..-  |    U   |
+|  ...-  |    V   |
+|   .--  |    W   |
+|  -..-  |    X   |
+|  -.--  |    Y   |
+|  --..  |    Z   |
+|  .---- |    1   |
+|  ..--- |    2   |
+|  ...-- |    3   |
+|  ....- |    4   |
+|  ..... |    5   |
+|  -.... |    6   |
+|  --... |    7   |
+|  ---.. |    8   |
+|  ----. |    9   |
+|  ----- |    0   |
