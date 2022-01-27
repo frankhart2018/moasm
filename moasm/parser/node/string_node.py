@@ -1,4 +1,8 @@
+from typing import List
+
 from .value_node import ValueNode
+from ...compiler.opcode import OpCode
+from ...compiler.opcode_type import OpCodeType
 
 
 class StringNode(ValueNode):
@@ -10,3 +14,10 @@ class StringNode(ValueNode):
         ast_string += self.__value + " (string) \n"
 
         return ast_string
+
+    def walk_and_compile(self, opcodes: List[OpCode]) -> None:
+        opcodes.append(OpCode(
+            opcode_type=OpCodeType.LOAD_CONST,
+            opcode_value=self.__value,
+            opcode_dtype="string"
+        ))

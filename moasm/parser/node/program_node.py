@@ -2,6 +2,7 @@ from typing import List
 
 from .node import Node
 from .statement_node import StatementNode
+from ...compiler.opcode import OpCode
 
 
 class ProgramNode(Node):
@@ -29,3 +30,7 @@ class ProgramNode(Node):
         ast_string += ")"
 
         return ast_string
+
+    def walk_and_compile(self, opcodes: List[OpCode]) -> None:
+        for statement in self.__statements:
+            statement.walk_and_compile(opcodes=opcodes)

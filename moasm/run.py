@@ -8,6 +8,8 @@ from .tokenizer.tokenizer import Tokenizer
 from .tokenizer.token import Token
 from .parser.parser import Parser
 from .parser.node.node import Node
+from .compiler.compiler import Compiler
+from .compiler.opcode import OpCode
 
 
 def run() -> None:
@@ -17,6 +19,7 @@ def run() -> None:
     parser.add_argument("-g", "--groups", default=False, action="store_true", help="Display groups")
     parser.add_argument("-t2", "--tokens", default=False, action="store_true", help="Display tokens")
     parser.add_argument("-a", "--ast", default=False, action="store_true", help="Display AST")
+    parser.add_argument("-b", "--bytecode", default=False, action="store_true", help="Display bytecode")
 
     args: argparse.Namespace = parser.parse_args()
 
@@ -38,3 +41,8 @@ def run() -> None:
     ast_root: Node = Parser(tokens=tokens).parse()
     if args.ast:
         print(ast_root.walk_and_print(tab_level=1))
+
+    bytecode: List[OpCode] = Compiler(ast_root=ast_root).compile()
+    if args.bytecode:
+        for opcode in bytecode:
+            print(opcode)
