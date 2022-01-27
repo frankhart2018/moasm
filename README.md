@@ -74,7 +74,7 @@ Here is the list of morse code symbols:
 
 These are the keywords in MoASM:
 
-1. `SHOW`: Prints the value to STDOUT. (`SHOW HELLO WORLD`)
+1. `SHOW`: Prints the value to STDOUT. If used without any parameters, it prints the last value in constant stack. (`SHOW HELLO WORLD`)
 2. `ADD`: Adds the values and prints it out. (`ADD 1 2`)
 3. `SUB`: Subtracts the values and prints it out. (`SUB 1 2`)
 4. `MUL`: Multiplies the values and prints it out. (`MUL 1 2`)

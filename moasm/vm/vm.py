@@ -35,5 +35,3 @@ class VM:
                     self.__const_stack.append(op1 // op2)
                 elif opcode.opcode_type == OpCodeType.MOD:
                     self.__const_stack.append(op1 % op2)
-
-                print(self.__const_stack.pop())
