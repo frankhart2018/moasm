@@ -68,3 +68,24 @@ Here is the list of morse code symbols:
 |  ---.. |    8   |
 |  ----. |    9   |
 |  ----- |    0   |
+
+
+## Keywords
+
+These are the keywords in MoASM:
+
+1. `SHOW`: Prints the value to STDOUT.
+
+## Don't know how to get started?
+
+Here is a sample hello world program in MoASM:
+
+```
+... .... --- .-- ~ .... . .-.. .-.. --- ~ .-- --- .-. .-.. -..
+```
+
+This translates to:
+
+```
+SHOW HELLO WORLD
+```
