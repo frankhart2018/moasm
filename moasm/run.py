@@ -21,6 +21,7 @@ def run() -> None:
     parser.add_argument("-t2", "--tokens", default=False, action="store_true", help="Display tokens")
     parser.add_argument("-a", "--ast", default=False, action="store_true", help="Display AST")
     parser.add_argument("-b", "--bytecode", default=False, action="store_true", help="Display bytecode")
+    parser.add_argument('-c', '--convert', default=False, action='store_true', help='Convert source to english alphabets')
 
     args: argparse.Namespace = parser.parse_args()
 
@@ -33,6 +34,15 @@ def run() -> None:
     if args.groups:
         for i, group in enumerate(groups):
             print(f"{i+1}: {group}")
+
+    if args.convert:
+        out_filename = args.input + ".eng"
+
+        with open(out_filename, 'w') as f:
+            for group in groups:
+                f.write(" ".join(group))
+        print(f"File converted to english at: {out_filename}")
+        return
 
     tokens: List[Token] = Tokenizer(groups=groups).tokenize()
     if args.tokens:
