@@ -7,6 +7,14 @@ class Token:
         self.__val: str = val
         self.__dtype: str = dtype
 
+    @property
+    def ttype(self) -> TokenType:
+        return self.__ttype
+
+    @property
+    def val(self) -> str:
+        return self.__val
+
     def __str__(self) -> str:
         type = f"{self.__ttype}"
         val_dtype = f"{self.__val} ({self.__dtype})"

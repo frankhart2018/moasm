@@ -18,5 +18,9 @@ class Tokenizer:
                     tokens.append(Token(TokenType.SHOW))
                 elif word.isalpha():
                     tokens.append(Token(TokenType.STRING, word, "string"))
+                elif word == "\n":
+                    tokens.append(Token(TokenType.NEWLINE))
+
+        tokens.append(Token(TokenType.END))
 
         return tokens
