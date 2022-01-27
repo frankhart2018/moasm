@@ -60,7 +60,6 @@ class Parser:
         self.__advance()
         self.__advance()
 
-
         return BinOpStatementNode(left=left, op=op, right=right)
 
     def __parse_statement(self) -> StatementNode:

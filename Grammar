@@ -1,5 +1,5 @@
 program -> (statement)*
 statement -> show | bin_op_statement
-show -> 'SHOW' value
+show -> 'SHOW' value?
 bin_op_statement -> 'ADD' | 'SUB' | 'MUL' | 'DIV' | 'MOD' number number
 value -> string | number | identifier

@@ -20,8 +20,14 @@ class PreTokenizer:
 
     def tokenize(self) -> List[PreToken]:
         tokens: List[PreToken] = []
+        is_comment_section: bool = False
 
         for char in self.__source:
+            if is_comment_section:
+                if char == "\n":
+                    is_comment_section = False
+                continue
+
             if char == '.':
                 tokens.append(PreToken.DOT)
             elif char == '-':
@@ -32,5 +38,7 @@ class PreTokenizer:
                 tokens.append(PreToken.NEWLINE)
             elif char == ' ':
                 tokens.append(PreToken.WHITESPACE)
+            elif char == '#':
+                is_comment_section = True
 
         return tokens
