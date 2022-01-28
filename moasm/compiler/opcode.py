@@ -16,7 +16,7 @@ class OpCode:
         return self.__opcode_value
 
     def __str__(self) -> str:
-        optype = str(self.__opcode_type)
+        optype = str(self.__opcode_type).split(".")[1]
         value = f" {self.__opcode_value} ({self.__opcode_dtype})"
 
         return optype + " " + value \
