@@ -14,12 +14,7 @@ class VM:
             if opcode.opcode_type == OpCodeType.LOAD_CONST:
                 self.__const_stack.append(opcode.opcode_value)
             elif opcode.opcode_type == OpCodeType.SHOW:
-                consts = []
-
-                while self.__const_stack:
-                    consts.append(str(self.__const_stack.pop()))
-
-                print(" ".join(consts[::-1]))
+                print(self.__const_stack.pop())
             elif opcode.opcode_type in [OpCodeType.ADD, OpCodeType.SUB,
                                         OpCodeType.MUL, OpCodeType.DIV, OpCodeType.MOD]:
                 op2 = int(self.__const_stack.pop())

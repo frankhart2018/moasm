@@ -13,11 +13,13 @@ class Tokenizer:
         tokens: List[Token] = []
 
         for group_line in self.__groups:
-            for word in group_line:
+            for i, word in enumerate(group_line):
                 if word in KEYWORD_LIST:
                     tokens.append(Token(TokenType[word.upper()]))
                 elif word.isalpha():
-                    tokens.append(Token(TokenType.STRING, word, "string"))
+                    tokens.append(Token(TokenType.STRING, " ".join(group_line[i:-1]), "string"))
+                    tokens.append(Token(TokenType.NEWLINE))
+                    break
                 elif word.isdigit():
                     tokens.append(Token(TokenType.NUMBER, word, "number"))
                 elif word == "\n":
