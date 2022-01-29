@@ -75,12 +75,14 @@ Here is the list of morse code symbols:
 
 These are the keywords in MoASM:
 
-1. `SHOW`: Prints the value to STDOUT. If used without any parameters, it prints the last value in constant stack. (`SHOW HELLO WORLD`)
+1. `SHOW`: Prints the value (string, number, or identifier) to STDOUT. If used without any parameters, it prints the last value in constant stack. (`SHOW HELLO WORLD`)
 2. `ADD`: Adds the values and prints it out. (`ADD 1 2`)
 3. `SUB`: Subtracts the values and prints it out. (`SUB 1 2`)
 4. `MUL`: Multiplies the values and prints it out. (`MUL 1 2`)
 5. `DIV`: Divides the values and prints it out. (`DIV 1 2`)
 6. `MOD`: Computes modulo of values and prints it out. (`MOD 1 2`)
+7. `PUSH`: Pushes the value to the constant stack. (`PUSH 2`)
+8. `POP`: Pops the value from the constant stack and pushes into a variable. (`POP %ABC`, all variables in MoASM have to start with `%`)
 
 ## Don't know how to get started?
 
