@@ -9,3 +9,5 @@ class OpCodeType(Enum):
     MUL = 4
     DIV = 5
     MOD = 6
+    LOAD_VAR = 7
+    PUSH_VAR = 8

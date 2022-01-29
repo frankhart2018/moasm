@@ -1,5 +1,7 @@
 program -> (statement)*
-statement -> show | bin_op_statement
+statement -> show | bin_op_statement | push_statement | pop_statement
 show -> 'SHOW' value?
-bin_op_statement -> 'ADD' | 'SUB' | 'MUL' | 'DIV' | 'MOD' number number
+bin_op_statement -> 'ADD' | 'SUB' | 'MUL' | 'DIV' | 'MOD' value value
+push_statement -> 'PUSH' value
+pop_statement -> 'POP' identifier
 value -> string | number | identifier

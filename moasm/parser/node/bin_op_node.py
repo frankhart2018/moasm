@@ -6,7 +6,7 @@ from ...compiler.opcode_type import OpCodeType
 from .value_node import ValueNode
 
 
-class BinOpStatementNode(StatementNode):
+class BinOpNode(StatementNode):
     def __init__(self, left: ValueNode, op: OpCodeType, right: ValueNode) -> None:
         self.__left = left
         self.__op = op
@@ -14,7 +14,7 @@ class BinOpStatementNode(StatementNode):
 
     def walk_and_print(self, tab_level: int) -> str:
         ast_string = self.add_tab_level(tab_level=tab_level)
-        ast_string += "BinOpStatementNode(\n"
+        ast_string += "BinOpNode(\n"
 
         tab_level += 1
         ast_string += self.add_tab_level(tab_level=tab_level)

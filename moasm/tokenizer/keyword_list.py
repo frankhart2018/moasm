@@ -5,4 +5,6 @@ KEYWORD_LIST = [
     'MUL',
     'DIV',
     'MOD',
+    'PUSH',
+    'POP',
 ]

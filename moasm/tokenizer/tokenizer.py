@@ -11,6 +11,7 @@ class Tokenizer:
 
     def tokenize(self) -> List[Token]:
         tokens: List[Token] = []
+        is_next_token_identifier = False
 
         for group_line in self.__groups:
             for i, word in enumerate(group_line):
@@ -24,6 +25,8 @@ class Tokenizer:
                     tokens.append(Token(TokenType.NUMBER, word, "number"))
                 elif word == "\n":
                     tokens.append(Token(TokenType.NEWLINE))
+                elif word.startswith("%"):
+                    tokens.append(Token(TokenType.IDENTIFIER, word[1:], "identifier"))
 
         tokens.append(Token(TokenType.END))
 

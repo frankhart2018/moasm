@@ -12,3 +12,6 @@ class TokenType(Enum):
     MUL = 8
     DIV = 9
     MOD = 10
+    PUSH = 11
+    POP = 12
+    IDENTIFIER = 13

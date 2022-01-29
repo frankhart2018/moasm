@@ -19,4 +19,4 @@ class Token:
         type = f"{self.__ttype}"
         val_dtype = f"{self.__val} ({self.__dtype})"
 
-        return type + " " + val_dtype if self.__val and self.__dtype else type
+        return type + " " + val_dtype if self.__val else type

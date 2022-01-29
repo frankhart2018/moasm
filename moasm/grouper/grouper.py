@@ -21,7 +21,7 @@ class Grouper:
                 current_morse = ""
 
                 while stack:
-                    if stack[-1].isalpha() or stack[-1] in [' ', '\n']:
+                    if stack[-1].isalpha() or stack[-1] in [' ', '\n', '%']:
                         break
                     current_morse += stack.pop()
 

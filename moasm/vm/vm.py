@@ -8,11 +8,18 @@ class VM:
     def __init__(self, opcodes: List[OpCode]) -> None:
         self.__opcodes = opcodes
         self.__const_stack = []
+        self.__memory = {}
 
     def run(self) -> None:
         for opcode in self.__opcodes:
             if opcode.opcode_type == OpCodeType.LOAD_CONST:
                 self.__const_stack.append(opcode.opcode_value)
+            elif opcode.opcode_type == OpCodeType.LOAD_VAR:
+                identifier = opcode.opcode_value
+                self.__memory[identifier] = self.__const_stack.pop()
+            elif opcode.opcode_type == OpCodeType.PUSH_VAR:
+                identifier = opcode.opcode_value
+                self.__const_stack.append(self.__memory[identifier])
             elif opcode.opcode_type == OpCodeType.SHOW:
                 print(self.__const_stack.pop())
             elif opcode.opcode_type in [OpCodeType.ADD, OpCodeType.SUB,
