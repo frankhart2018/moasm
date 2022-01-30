@@ -13,6 +13,15 @@ from .compiler.opcode import OpCode
 from .vm.vm import VM
 
 
+def print_topic(topic: str) -> None:
+    print("*" * 50)
+    print(f"* {topic}")
+    print("*" * 50)
+
+def end_topic() -> None:
+    print("-" * 50)
+
+
 def run() -> None:
     parser: argparse.ArgumentParser = argparse.ArgumentParser("MoASM assembler")
     parser.add_argument("-i", "--input", type=str, help="Input file")
@@ -27,13 +36,17 @@ def run() -> None:
 
     tokens: List[PreToken] = PreTokenizer(source_file_path=args.input).tokenize()
     if args.pretokens:
+        print_topic("Pre-Tokens")
         for token in tokens:
             print(token)
+        end_topic()
 
     groups: List[List[str]] = Grouper(tokens=tokens).group()
     if args.groups:
+        print_topic("Groups")
         for i, group in enumerate(groups):
             print(f"{i+1}: {group}")
+        end_topic()
 
     if args.convert:
         out_filename = args.input + ".eng"
@@ -46,17 +59,23 @@ def run() -> None:
 
     tokens: List[Token] = Tokenizer(groups=groups).tokenize()
     if args.tokens:
+        print_topic("Tokens")
         for token in tokens:
             print(token)
+        end_topic()
 
     ast_root: Node = Parser(tokens=tokens).parse()
     if args.ast:
+        print_topic("AST")
         print(ast_root.walk_and_print(tab_level=1))
+        end_topic()
 
     bytecode: List[OpCode] = Compiler(ast_root=ast_root).compile()
     if args.bytecode:
+        print_topic("ByteCode")
         for opcode in bytecode:
             print(opcode)
+        end_topic()
 
     vm: VM = VM(opcodes=bytecode)
     vm.run()
