@@ -84,6 +84,8 @@ These are the keywords in MoASM:
 6. `MOD`: Computes modulo of values and prints it out. (`MOD 1 2`)
 7. `PUSH`: Pushes the value to the constant stack. (`PUSH 2`)
 8. `POP`: Pops the value from the constant stack and pushes into a variable. (`POP %ABC`, all variables in MoASM have to start with `%`)
+9. `JZ`: Jumps to the specified label if and only if the value on top of stack is zero. (`JZ $END`, all labels in MoASM have to start with `$`)
+10. `JMP`: Jumps to the specified label. (`JMP $END`)
 
 ## Don't know how to get started?
 
