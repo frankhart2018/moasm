@@ -27,6 +27,8 @@ class Tokenizer:
                     tokens.append(Token(TokenType.NEWLINE))
                 elif word.startswith("%"):
                     tokens.append(Token(TokenType.IDENTIFIER, word[1:], "identifier"))
+                elif word.startswith("$"):
+                    tokens.append(Token(TokenType.LABEL, word[1:], "label"))
 
         tokens.append(Token(TokenType.END))
 

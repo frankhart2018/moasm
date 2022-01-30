@@ -11,7 +11,10 @@ class VM:
         self.__memory = {}
 
     def run(self) -> None:
-        for opcode in self.__opcodes:
+        i = 0
+        while i < len(self.__opcodes):
+            opcode = self.__opcodes[i]
+
             if opcode.opcode_type == OpCodeType.LOAD_CONST:
                 self.__const_stack.append(opcode.opcode_value)
             elif opcode.opcode_type == OpCodeType.LOAD_VAR:
@@ -37,3 +40,14 @@ class VM:
                     self.__const_stack.append(op1 // op2)
                 elif opcode.opcode_type == OpCodeType.MOD:
                     self.__const_stack.append(op1 % op2)
+            elif opcode.opcode_type == OpCodeType.LABEL:
+                pass
+            elif opcode.opcode_type == OpCodeType.JZ:
+                stack_top = self.__const_stack.pop()
+
+                if not stack_top:
+                    i = opcode.opcode_value
+            elif opcode.opcode_type == OpCodeType.JMP:
+                i = opcode.opcode_value
+
+            i += 1

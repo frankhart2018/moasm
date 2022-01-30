@@ -1,7 +1,12 @@
 program -> (statement)*
 statement -> show | bin_op_statement | push_statement | pop_statement
+           | jump_statement | label
 show -> 'SHOW' value?
 bin_op_statement -> 'ADD' | 'SUB' | 'MUL' | 'DIV' | 'MOD' value value
 push_statement -> 'PUSH' value
 pop_statement -> 'POP' identifier
+jump_statement -> jz_statement | jmp_statement
+jz_statement -> 'JZ' label
+jmp_statement -> 'JMP' label
 value -> string | number | identifier
+label -> label_name

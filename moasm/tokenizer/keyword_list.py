@@ -7,4 +7,6 @@ KEYWORD_LIST = [
     'MOD',
     'PUSH',
     'POP',
+    'JZ',
+    'JMP',
 ]

@@ -15,3 +15,6 @@ class TokenType(Enum):
     PUSH = 11
     POP = 12
     IDENTIFIER = 13
+    LABEL = 14
+    JZ = 15
+    JMP = 16

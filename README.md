@@ -69,6 +69,7 @@ Here is the list of morse code symbols:
 | ----.  |   9    |
 | -----  |   0    |
 | ..-..  |   %    |
+| -.-..  |   $    |
 
 
 ## Keywords

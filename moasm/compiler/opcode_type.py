@@ -11,3 +11,6 @@ class OpCodeType(Enum):
     MOD = 6
     LOAD_VAR = 7
     PUSH_VAR = 8
+    LABEL = 9
+    JZ = 10
+    JMP = 11
