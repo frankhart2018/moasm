@@ -1,4 +1,5 @@
-from typing import List
+import sys
+from typing import List, Any
 
 from ..compiler.opcode import OpCode
 from ..compiler.opcode_type import OpCodeType
@@ -10,7 +11,13 @@ class VM:
         self.__const_stack = []
         self.__memory = {}
 
-    def run(self) -> None:
+    def __get_file_desc(self, file_name: str) -> Any:
+        if file_name == "out":
+            return open(file_name, "w")
+        elif file_name == "stdout":
+            return sys.stdout
+
+    def run(self, out_file) -> None:
         i = 0
         while i < len(self.__opcodes):
             opcode = self.__opcodes[i]
@@ -24,7 +31,8 @@ class VM:
                 identifier = opcode.opcode_value
                 self.__const_stack.append(self.__memory[identifier])
             elif opcode.opcode_type == OpCodeType.SHOW:
-                print(self.__const_stack.pop())
+                with self.__get_file_desc(file_name=out_file) as f:
+                    print(self.__const_stack.pop(), file=f)
             elif opcode.opcode_type in [OpCodeType.ADD, OpCodeType.SUB,
                                         OpCodeType.MUL, OpCodeType.DIV, OpCodeType.MOD]:
                 op2 = int(self.__const_stack.pop())

@@ -78,4 +78,4 @@ def run() -> None:
         end_topic()
 
     vm: VM = VM(opcodes=bytecode)
-    vm.run()
+    vm.run(out_file="stdout")
