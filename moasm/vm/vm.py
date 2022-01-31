@@ -12,10 +12,9 @@ class VM:
         self.__memory = {}
 
     def __get_file_desc(self, file_name: str) -> Any:
-        if file_name == "out":
-            return open(file_name, "w")
-        elif file_name == "stdout":
+        if file_name == "stdout":
             return sys.stdout
+        return open(file_name, "w")
 
     def run(self, out_file) -> None:
         i = 0

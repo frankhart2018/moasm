@@ -30,7 +30,9 @@ def run() -> None:
     parser.add_argument("-t2", "--tokens", default=False, action="store_true", help="Display tokens")
     parser.add_argument("-a", "--ast", default=False, action="store_true", help="Display AST")
     parser.add_argument("-b", "--bytecode", default=False, action="store_true", help="Display bytecode")
-    parser.add_argument('-c', '--convert', default=False, action='store_true', help='Convert source to english alphabets')
+    parser.add_argument("-c", '--convert', default=False, action='store_true',
+                        help='Convert source to english alphabets')
+    parser.add_argument("-r", "--redirect", type=str, help="Redirect output to file")
 
     args: argparse.Namespace = parser.parse_args()
 
@@ -78,4 +80,4 @@ def run() -> None:
         end_topic()
 
     vm: VM = VM(opcodes=bytecode)
-    vm.run(out_file="stdout")
+    vm.run(out_file="stdout" if not args.redirect else args.redirect)
