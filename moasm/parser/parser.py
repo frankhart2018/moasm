@@ -49,13 +49,12 @@ class Parser:
         return IdentifierNode(identifier_name=self.__peek().val)
 
     def __parse_value(self) -> ValueNode:
-        self.__num_opcodes += 1
-
         if self.__peek().ttype == TokenType.STRING:
             return StringNode(value=self.__peek().val)
         elif self.__peek().ttype == TokenType.NUMBER:
             return NumberNode(value=self.__peek().val)
         elif self.__peek().ttype == TokenType.IDENTIFIER:
+            self.__num_opcodes += 1
             return IdentifierNode(identifier_name=self.__peek().val, emit_push=True)
 
     def __parse_show_statement(self) -> StatementNode:
