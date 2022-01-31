@@ -18,3 +18,4 @@ class TokenType(Enum):
     LABEL = 14
     JZ = 15
     JMP = 16
+    JN = 17

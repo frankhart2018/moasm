@@ -14,3 +14,4 @@ class OpCodeType(Enum):
     LABEL = 9
     JZ = 10
     JMP = 11
+    JN = 12

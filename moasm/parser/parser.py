@@ -100,7 +100,13 @@ class Parser:
         return PopNode(target=target_node)
 
     def __parse_jump_statement(self) -> StatementNode:
-        opcode_type = OpCodeType.JMP if self.__peek().ttype == TokenType.JMP else OpCodeType.JZ
+        token_type_to_opcode_type = {
+            TokenType.JMP: OpCodeType.JMP,
+            TokenType.JZ: OpCodeType.JZ,
+            TokenType.JN: OpCodeType.JN,
+        }
+        opcode_type = token_type_to_opcode_type[self.__peek().ttype]
+
         self.__advance()
         label_name = self.__peek().val
         self.__advance()
@@ -137,7 +143,7 @@ class Parser:
             return self.__parse_push_statement()
         elif self.__peek().ttype == TokenType.POP:
             return self.__parse_pop_statement()
-        elif self.__peek().ttype in [TokenType.JZ, TokenType.JMP]:
+        elif self.__peek().ttype in [TokenType.JZ, TokenType.JMP, TokenType.JN]:
             return self.__parse_jump_statement()
         elif self.__peek().ttype == TokenType.LABEL:
             return self.__parse_label()

@@ -49,5 +49,10 @@ class VM:
                     i = opcode.opcode_value
             elif opcode.opcode_type == OpCodeType.JMP:
                 i = opcode.opcode_value
+            elif opcode.opcode_type == OpCodeType.JN:
+                stack_top = self.__const_stack.pop()
+
+                if stack_top < 0:
+                    i = opcode.opcode_value
 
             i += 1

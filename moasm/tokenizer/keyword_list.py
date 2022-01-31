@@ -9,4 +9,5 @@ KEYWORD_LIST = [
     'POP',
     'JZ',
     'JMP',
+    'JN',
 ]
