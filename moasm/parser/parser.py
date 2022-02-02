@@ -24,6 +24,7 @@ class Parser:
         self.__current_token_idx = 0
 
         self.__label_bind_map: Dict[str, List[StatementNode]] = {}
+        self.__label_resolved_map: Dict[str, StatementNode] = {}
         self.__num_opcodes: int = 0
 
     def __peek(self) -> Token:
@@ -46,15 +47,17 @@ class Parser:
         self.__label_bind_map[label_name].append(statement_node)
 
     def __parse_identifier(self) -> IdentifierNode:
+        self.__num_opcodes += 1
         return IdentifierNode(identifier_name=self.__peek().val)
 
     def __parse_value(self) -> ValueNode:
+        self.__num_opcodes += 1
+
         if self.__peek().ttype == TokenType.STRING:
             return StringNode(value=self.__peek().val)
         elif self.__peek().ttype == TokenType.NUMBER:
             return NumberNode(value=self.__peek().val)
         elif self.__peek().ttype == TokenType.IDENTIFIER:
-            self.__num_opcodes += 1
             return IdentifierNode(identifier_name=self.__peek().val, emit_push=True)
 
     def __parse_show_statement(self) -> StatementNode:
@@ -111,6 +114,11 @@ class Parser:
         self.__advance()
         self.__advance()
 
+        if label_name in self.__label_resolved_map:
+            label_node = self.__label_resolved_map.get(label_name, [])
+            del self.__label_resolved_map[label_name]
+            return JumpStatementNode(label_node=label_node, opcode_type=opcode_type)
+
         dummy_label_node = LabelNode(label_name="dummy", opcode_num=-1)
         jmp_node = JumpStatementNode(label_node=dummy_label_node, opcode_type=opcode_type)
         self.__add_to_label_bind_map(label_name=label_name, statement_node=jmp_node)
@@ -124,10 +132,13 @@ class Parser:
 
         label_node = LabelNode(label_name=label_name, opcode_num=self.__num_opcodes - 2)
 
-        late_bind_candidates = self.__label_bind_map.get(label_name, [])
-        for late_bind_candidate in late_bind_candidates:
-            late_bind_candidate.late_bind(bind_node=label_node)
-        del self.__label_bind_map[label_name]
+        if label_name in self.__label_bind_map:
+            late_bind_candidates = self.__label_bind_map.get(label_name, [])
+            for late_bind_candidate in late_bind_candidates:
+                late_bind_candidate.late_bind(bind_node=label_node)
+            del self.__label_bind_map[label_name]
+        else:
+            self.__label_resolved_map[label_name] = label_node
 
         return label_node
 
@@ -139,8 +150,10 @@ class Parser:
         elif self.__peek().ttype in [TokenType.ADD, TokenType.SUB, TokenType.MUL, TokenType.DIV, TokenType.MOD]:
             return self.__parse_bin_op_statement()
         elif self.__peek().ttype == TokenType.PUSH:
+            self.__num_opcodes -= 1
             return self.__parse_push_statement()
         elif self.__peek().ttype == TokenType.POP:
+            self.__num_opcodes -= 1
             return self.__parse_pop_statement()
         elif self.__peek().ttype in [TokenType.JZ, TokenType.JMP, TokenType.JN]:
             return self.__parse_jump_statement()
