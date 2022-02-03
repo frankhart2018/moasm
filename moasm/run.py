@@ -1,4 +1,6 @@
 import argparse
+import os
+import shutil
 from typing import List
 
 from .pretokenizer.pretokenizer import PreTokenizer
@@ -11,12 +13,14 @@ from .parser.node.node import Node
 from .compiler.compiler import Compiler
 from .compiler.opcode import OpCode
 from .vm.vm import VM
+from .utils.file_paths import MOASM_DIR
 
 
 def print_topic(topic: str) -> None:
     print("*" * 50)
     print(f"* {topic}")
     print("*" * 50)
+
 
 def end_topic() -> None:
     print("-" * 50)

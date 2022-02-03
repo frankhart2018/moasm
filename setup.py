@@ -2,12 +2,17 @@ import os
 import codecs
 import pathlib
 from setuptools import setup, find_packages
+from distutils.dir_util import copy_tree
+
+from moasm.utils.file_paths import MOASM_DIR
 
 # The directory containing this file
 HERE = pathlib.Path(__file__).parent
 
 # The text of the README file
 README = (HERE / "README.md").read_text()
+
+LIBS_DIR = os.path.join(os.path.curdir, "libs")
 
 
 def read(rel_path: str) -> str:
@@ -25,8 +30,16 @@ def get_version(rel_path: str) -> str:
         raise RuntimeError("Unable to find version string.")
 
 
+def _post_install(setup):
+    def _post_actions():
+        copy_tree(LIBS_DIR, os.path.join(MOASM_DIR, "libs"))
+
+    _post_actions()
+    return setup
+
+
 # This call to setup() does all the work
-setup(
+setup = _post_install(setup(
     name="moasm",
     version=get_version("moasm/__init__.py"),
     description="Low-level esoteric language",
@@ -48,4 +61,4 @@ setup(
         "Programming Language :: Python :: 3.6",
     ],
     # install_requires=["flask", "mypy"],
-)
+))
