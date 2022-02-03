@@ -116,7 +116,6 @@ class Parser:
 
         if label_name in self.__label_resolved_map:
             label_node = self.__label_resolved_map.get(label_name, [])
-            del self.__label_resolved_map[label_name]
             return JumpStatementNode(label_node=label_node, opcode_type=opcode_type)
 
         dummy_label_node = LabelNode(label_name="dummy", opcode_num=-1)

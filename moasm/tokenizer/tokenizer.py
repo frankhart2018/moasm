@@ -1,7 +1,6 @@
 import os.path
 import sys
 from typing import List
-import glob
 
 from .token import Token
 from .tokentype import TokenType
@@ -63,12 +62,21 @@ class Tokenizer:
         return True
 
 
-    def tokenize(self) -> List[Token]:
+    def tokenize(self, dump_late_groups: bool, file_name) -> List[Token]:
         tokens: List[Token] = []
 
         if not self.__tokenize(tokens):
             tokens = []
             self.__tokenize(tokens)
+
+        if dump_late_groups:
+            out_filename = file_name + ".eng"
+
+            with open(out_filename, 'w') as f:
+                for group in self.__groups:
+                    f.write(" ".join(group))
+            print(f"File converted to english after tokenization at: {out_filename}")
+            sys.exit()
 
         tokens.append(Token(TokenType.END))
         return tokens

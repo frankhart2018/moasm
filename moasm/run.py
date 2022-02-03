@@ -36,6 +36,8 @@ def run() -> None:
     parser.add_argument("-b", "--bytecode", default=False, action="store_true", help="Display bytecode")
     parser.add_argument("-c", '--convert', default=False, action='store_true',
                         help='Convert source to english alphabets')
+    parser.add_argument("-lc", "--late_convert", default=False, action="store_true",
+                        help="Convert source to english alphabets after tokenization")
     parser.add_argument("-r", "--redirect", type=str, help="Redirect output to file")
 
     args: argparse.Namespace = parser.parse_args()
@@ -63,7 +65,7 @@ def run() -> None:
         print(f"File converted to english at: {out_filename}")
         return
 
-    tokens: List[Token] = Tokenizer(groups=groups).tokenize()
+    tokens: List[Token] = Tokenizer(groups=groups).tokenize(dump_late_groups=args.late_convert, file_name=args.input)
     if args.tokens:
         print_topic("Tokens")
         for token in tokens:
