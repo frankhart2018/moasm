@@ -16,6 +16,7 @@ from .node.pop_node import PopNode
 from .node.identifier_node import IdentifierNode
 from .node.jump_statement_node import JumpStatementNode
 from .node.label_node import LabelNode
+from .node.return_node import ReturnNode
 
 
 class Parser:
@@ -106,6 +107,7 @@ class Parser:
             TokenType.JMP: OpCodeType.JMP,
             TokenType.JZ: OpCodeType.JZ,
             TokenType.JN: OpCodeType.JN,
+            TokenType.CALL: OpCodeType.CALL,
         }
         opcode_type = token_type_to_opcode_type[self.__peek().ttype]
 
@@ -141,6 +143,12 @@ class Parser:
 
         return label_node
 
+    def __parse_return_statement(self) -> StatementNode:
+        self.__advance()
+        self.__advance()
+
+        return ReturnNode()
+
     def __parse_statement(self) -> StatementNode:
         self.__num_opcodes += 1
 
@@ -154,10 +162,12 @@ class Parser:
         elif self.__peek().ttype == TokenType.POP:
             self.__num_opcodes -= 1
             return self.__parse_pop_statement()
-        elif self.__peek().ttype in [TokenType.JZ, TokenType.JMP, TokenType.JN]:
+        elif self.__peek().ttype in [TokenType.JZ, TokenType.JMP, TokenType.JN, TokenType.CALL]:
             return self.__parse_jump_statement()
         elif self.__peek().ttype == TokenType.LABEL:
             return self.__parse_label()
+        elif self.__peek().ttype == TokenType.RET:
+            return self.__parse_return_statement()
 
     def __parse_program(self) -> Node:
         statements: List[StatementNode] = []

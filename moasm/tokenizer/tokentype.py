@@ -19,3 +19,5 @@ class TokenType(Enum):
     JZ = 15
     JMP = 16
     JN = 17
+    CALL = 18
+    RET = 19

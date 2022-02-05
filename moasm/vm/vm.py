@@ -9,6 +9,7 @@ class VM:
     def __init__(self, opcodes: List[OpCode]) -> None:
         self.__opcodes = opcodes
         self.__const_stack = []
+        self.__instruction_stack = []
         self.__memory = {}
 
     def __get_file_desc(self, file_name: str) -> Any:
@@ -61,5 +62,10 @@ class VM:
 
                     if stack_top < 0:
                         i = opcode.opcode_value
+                elif opcode.opcode_type == OpCodeType.CALL:
+                    self.__instruction_stack.append(i)
+                    i = opcode.opcode_value
+                elif opcode.opcode_type == OpCodeType.RET:
+                    i = self.__instruction_stack.pop()
 
                 i += 1

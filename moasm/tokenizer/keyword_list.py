@@ -11,4 +11,6 @@ KEYWORD_LIST = [
     'JMP',
     'JN',
     'INC',
+    'CALL',
+    'RET',
 ]

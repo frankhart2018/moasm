@@ -15,3 +15,5 @@ class OpCodeType(Enum):
     JZ = 10
     JMP = 11
     JN = 12
+    CALL = 13
+    RET = 14
