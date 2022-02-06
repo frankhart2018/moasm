@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoASM Text Editor</title>
+
+    <style type="text/css">
+        .edit {
+            width: 100%;
+            height: 90vh;
+            border: 2px solid black;
+        }
+
+        #edits {
+            text-align: center;
+        }
+
+        h1 {
+            text-align: center;
+            text-decoration: underline;
+        }
+
+        #moasm-div {
+            float: left;
+        }
+
+        #eng-div {
+            float: right;
+        }
+
+        #eng-code {
+            background-color: #E0E0E0;
+        }
+
+        .edits-div {
+            width: 45%;
+            margin: 2%;
+        }
+    </style>
+</head>
+<body>
+    <h1>MoASM Text Editor</h1>
+    <div id="edits">
+        <div id="moasm-div" class="edits-div">
+            <label for="moasm-code">MoASM Code</label>
+            <textarea id="moasm-code" class="edit" autofocus></textarea>
+        </div>
+
+        <div id="eng-div" class="edits-div">
+            <label for="eng-code">English Code</label>
+            <textarea id="eng-code" class="edit" disabled></textarea>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+
+        window.onload = () => {
+            const moasmCode = document.getElementById('moasm-code');
+            const engCode = document.getElementById('eng-code');
+
+            let currentMoasmCode = '';
+
+            var morse_to_en = {
+                ".-": "A",
+                "-...": "B",
+                "-.-.": "C",
+                "-..": "D",
+                ".": "E",
+                "..-.": "F",
+                "--.": "G",
+                "....": "H",
+                "..": "I",
+                ".---": "J",
+                "-.-": "K",
+                ".-..": "L",
+                "--": "M",
+                "-.": "N", 
+                "---": "O",
+                ".--.": "P",
+                "--.-": "Q",
+                ".-.": "R",
+                "...": "S",
+                "-": "T",
+                "..-": "U",
+                "...-": "V",
+                ".--": "W",
+                "-..-": "X",
+                "-.--": "Y",
+                "--..": "Z",
+                "-----": "0",
+                ".----": "1",
+                "..---": "2",
+                "...--": "3",
+                "....-": "4",
+                ".....": "5",
+                "-....": "6",
+                "--...": "7",
+                "---..": "8",
+                "----.": "9",
+                "-.-..": "$",
+                "..-..": "%",
+                "~": " ",
+                " ": " ",
+            };
+
+            let convert_morse_to_en = () => {
+                var lines_of_code = moasmCode.value.split("\n");
+                var split_code;
+                var converted_code = "";
+                for(var i = 0; i < lines_of_code.length; i++) {
+                    split_code = lines_of_code[i].split(" ");
+                    for(var j = 0; j < split_code.length; j++) {
+                        if(split_code[j].length > 0)
+                            converted_code += morse_to_en[split_code[j]];
+                        else
+                            converted_code += "\n";
+                    }
+                }
+
+                engCode.value = converted_code;
+            }
+
+            moasmCode.onkeypress = (e) => {
+                var keynum;
+                var char;
+
+                if(window.event) { // IE                    
+                    keynum = e.keyCode;
+                } else if(e.which){ // Netscape/Firefox/Opera                   
+                    keynum = e.which;
+                }
+
+                char = String.fromCharCode(keynum);
+                if(char == " ") {
+                    convert_morse_to_en();
+                }
+            }
+        };
+    </script>
+</body>
+</html>
