@@ -13,4 +13,5 @@ KEYWORD_LIST = [
     'INC',
     'CALL',
     'RET',
+    'EQU',
 ]

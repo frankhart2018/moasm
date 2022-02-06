@@ -67,5 +67,13 @@ class VM:
                     i = opcode.opcode_value
                 elif opcode.opcode_type == OpCodeType.RET:
                     i = self.__instruction_stack.pop()
+                elif opcode.opcode_type == OpCodeType.EQU:
+                    val1 = str(self.__const_stack.pop())
+                    val2 = str(self.__const_stack[-1])
+
+                    if val1 == val2:
+                        self.__const_stack.append(1)
+                    else:
+                        self.__const_stack.append(0)
 
                 i += 1

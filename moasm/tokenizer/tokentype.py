@@ -21,3 +21,4 @@ class TokenType(Enum):
     JN = 17
     CALL = 18
     RET = 19
+    EQU = 20

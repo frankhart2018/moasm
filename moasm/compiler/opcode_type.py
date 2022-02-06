@@ -17,3 +17,4 @@ class OpCodeType(Enum):
     JN = 12
     CALL = 13
     RET = 14
+    EQU = 15

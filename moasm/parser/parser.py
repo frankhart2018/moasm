@@ -17,6 +17,7 @@ from .node.identifier_node import IdentifierNode
 from .node.jump_statement_node import JumpStatementNode
 from .node.label_node import LabelNode
 from .node.return_node import ReturnNode
+from .node.equality_node import EqualityNode
 
 
 class Parser:
@@ -149,6 +150,15 @@ class Parser:
 
         return ReturnNode()
 
+    def __parse_equality_statement(self) -> StatementNode:
+        self.__advance()
+
+        value_node: ValueNode = self.__parse_value()
+        self.__advance()
+        self.__advance()
+
+        return EqualityNode(value_node=value_node)
+
     def __parse_statement(self) -> StatementNode:
         self.__num_opcodes += 1
 
@@ -168,6 +178,8 @@ class Parser:
             return self.__parse_label()
         elif self.__peek().ttype == TokenType.RET:
             return self.__parse_return_statement()
+        elif self.__peek().ttype == TokenType.EQU:
+            return self.__parse_equality_statement()
 
     def __parse_program(self) -> Node:
         statements: List[StatementNode] = []
