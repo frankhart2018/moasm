@@ -1,5 +1,7 @@
 # MoASM
 
+:no_entry: [DEPRECATED] Will be moved to at https://github.com/yamini-vm/moasm.git soon.
+
 MoASM is an esoteric low-level assembly like language in which the instructions are written in morse code.
 
 ## Installation and usage
